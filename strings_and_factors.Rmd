@@ -155,6 +155,28 @@ data_marj |>
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ```
 
+## Weather data
+
+```{r}
+data(weather_df)
+
+weather_df |> 
+  mutate(name = fct_relevel(name, "Molokai_HI")) |> 
+  ggplot(aes(x = name, y = tmax)) +
+  geom_violin()
+
+weather_df |> 
+  mutate(name = fct_reorder(name, tmax)) |> 
+  ggplot(aes(x = name, y = tmax)) +
+  geom_violin()
+```
+
+```{r}
+weather_df |> 
+  mutate(name = fct_reorder(name, tmax)) |> 
+  lm(tmax ~ name, data = weather_df)
+```
+
 
 
 
